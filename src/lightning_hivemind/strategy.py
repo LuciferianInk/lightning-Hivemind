@@ -117,6 +117,13 @@ class HivemindStrategy(Strategy):
 
         use_auto_relay: look for libp2p relays to become reachable if we are behind NAT/firewall
 
+<<<<<<< HEAD
+=======
+        identity_path: Path to a private key file. If defined, makes the peer ID deterministic.
+            If the file does not exist, writes a new private key to this file.
+    )
+
+>>>>>>> remote/main
         **optimizer_kwargs: kwargs are passed to the :class:`hivemind.Optimizer` class.
     """
 
@@ -145,6 +152,10 @@ class HivemindStrategy(Strategy):
         bootstrap_timeout: Optional[float] = None,
         use_relay: bool = True,
         use_auto_relay: bool = False,
+<<<<<<< HEAD
+=======
+        identity_path: Optional[str] = None,
+>>>>>>> remote/main
         **optimizer_kwargs: Any,
     ):
         if platform.system() != "Linux":
@@ -183,11 +194,19 @@ class HivemindStrategy(Strategy):
             initial_peers=initial_peers,
             host_maddrs=host_maddrs if host_maddrs is not None else ["/ip4/0.0.0.0/tcp/0", "/ip4/0.0.0.0/udp/0/quic"],
             use_ipfs=use_ipfs,
+<<<<<<< HEAD
             ensure_bootstrap_success=bool(not use_ipfs),
+=======
+            ensure_bootstrap_success=True,
+>>>>>>> remote/main
             wait_timeout=wait_timeout,
             bootstrap_timeout=bootstrap_timeout,
             use_relay=use_relay,
             use_auto_relay=use_auto_relay,
+<<<<<<< HEAD
+=======
+            identity_path=identity_path,
+>>>>>>> remote/main
         )
 
         visible_addresses = [
@@ -300,7 +319,7 @@ class HivemindStrategy(Strategy):
                 raise ValueError(
                     f"The `ReduceLROnPlateau` scheduler is not currently supported with `{self.__class__.__name__}`."
                 )
-            scheduler_config.scheduler = HiveMindScheduler(optimizer=opt, scheduler=scheduler)
+            scheduler_config.scheduler = HiveMindScheduler(optimizer=opt, scheduler=scheduler)  # type: ignore[assignment]
 
     def on_train_batch_start(self, batch: Any, batch_idx: int, dataloader_idx: int = 0) -> None:
         if not self._hivemind_initialized:
